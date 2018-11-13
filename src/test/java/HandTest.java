@@ -14,14 +14,25 @@ public class HandTest {
 	}
 
 	@Test
+	public void isStraight() {
+		Hand hand = Hand.createUnsafe("S1 S2 S3 S4 S5");
+		assertEquals("S1 S2 S3 S4 S5", true, hand.isStraight());
+
+		hand = Hand.createUnsafe("S2 S3 S4 S5 D6");
+		assertEquals("S2 S3 S4 S5 D6", true, hand.isStraight());
+
+		hand = Hand.createUnsafe("S1 S10 S11 S12 D13");
+		assertEquals("S1 S10 S11 S12 D13", true, hand.isStraight());
+	}
+	@Test
 	public void isFlush() {
 		Hand hand = Hand.createUnsafe("S1 S2 S3 S4 S5");
 		assertEquals("S1 S2 S3 S4 S5", true, hand.isFlush());
 
-		hand = Hand.createUnsafe("S2 S3 S4 S5 D6");
-		assertEquals("S2 S3 S4 S5 D6", true, hand.isFlush());
+		hand = Hand.createUnsafe("D2 D3 D4 D5 D6");
+		assertEquals("D2 D3 D4 D5 D6", true, hand.isFlush());
 
 		hand = Hand.createUnsafe("S1 S10 S11 S12 D13");
-		assertEquals("S1 S10 S11 S12 D13", true, hand.isFlush());
+		assertEquals("S1 S10 S11 S12 D13", false, hand.isFlush());
 	}
 }

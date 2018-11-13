@@ -24,7 +24,7 @@ public class Hand {
 		return builder.toString();
 	}
 
-	public boolean isFlush() {
+	public boolean isStraight() {
 		this.cards.sort(Card.newPokaComparator());
 		if(cards.get(0).getNumber() == 1 && cards.get(1).getNumber() == 10 
 			&& cards.get(2).getNumber() == 11 && cards.get(3).getNumber() == 12
@@ -33,6 +33,17 @@ public class Hand {
 		}
 		for(int i=1;i<this.cards.size();i++) {
 			if(cards.get(i-1).getNumber()+1 != cards.get(i).getNumber()) { 
+				return false;
+			}
+		}
+		return true;		
+	}
+	
+	public boolean isFlush() {
+		this.cards.sort(Card.newPokaComparator());
+		CardType type = cards.get(0).getType();
+		for(int i=1;i<this.cards.size();i++) {
+			if(cards.get(i).getType() != type) {
 				return false;
 			}
 		}
