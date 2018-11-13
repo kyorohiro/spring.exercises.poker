@@ -1,15 +1,27 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 public class Hand {
 
 	private List<Card> cards;
-	public String name;
-	int score;
+	private HandName name;
+	private long score;
 
-	private Hand() {}
+	private Hand() {
+	}
+
+	public  HandName getName() {
+		return this.name;
+	}
+
+	public long getScore() {
+		return score;
+	}
 	
 	@Override
 	public String toString() {
@@ -20,8 +32,73 @@ public class Hand {
 			}
 			builder.append(cards.get(i).toString());
 		}
-		//System.out.println("XX+>>>"+builder.toString());
 		return builder.toString();
+	}
+
+	private void calcScoreAndName() {
+		Pairs ps = new Pairs(this.cards);
+		if(isFlush() && isStraight()) {
+			this.name = HandName.STRAIGHT_FLUSH;
+			this.score = 90*13*13*13*13*13;
+			this.score += ps.noPairs.get(2).getScore();
+		}
+		else if(isFourCard()) {
+			this.name = HandName.FOUR;
+			this.score = 80*13*13*13*13*13;
+			this.score += ps.fourCard.getNumber()*13;
+			this.score += ps.noPairs.get(0).getScore();
+		}
+		else if(isThreeCard() && isPairs()) {
+			this.name = HandName.FULL_HOUSE;
+			this.score = 70*13*13*13*13*13;
+			this.score += ps.threeCard.getScore()*13;
+			this.score += ps.pairs.get(0).getScore();
+		}
+		else if(isFlush()) {
+			this.name = HandName.FLUSH;
+			this.score = 60*13*13*13*13*13;
+			this.score += ps.noPairs.get(4).getScore() * 13*13*13*13;
+			this.score += ps.noPairs.get(3).getScore() * 13*13*13;
+			this.score += ps.noPairs.get(2).getScore() * 13*13;
+			this.score += ps.noPairs.get(1).getScore() * 13;
+			this.score += ps.noPairs.get(0).getScore();
+		}
+		else if(isStraight()) {
+			this.name = HandName.STRAIGHT;
+			this.score = 50*13*13*13*13*13;
+			this.score += ps.noPairs.get(2).getScore();
+		}
+		else if(isThreeCard()) {
+			this.name = HandName.THREE;
+			this.score = 40*13*13*13*13*13;
+			this.score += ps.threeCard.getScore()*13;
+			this.score += ps.noPairs.get(1).getScore() * 13;
+			this.score += ps.noPairs.get(0).getScore();
+		}		
+		else if(isTwoPairs()) {
+			this.name = HandName.TWO;
+			this.score = 30*13*13*13*13*13;			
+			this.score += ps.pairs.get(1).getScore() * 13*13;
+			this.score += ps.pairs.get(0).getScore() * 13;
+			this.score += ps.noPairs.get(0).getScore();
+		}
+		else if(isPairs()) {
+			this.name = HandName.ONE;
+			this.score = 20*13*13*13*13*13;
+			this.score += ps.pairs.get(0).getScore() * 13*13*13;
+			this.score += ps.noPairs.get(2).getScore() * 13*13;
+			this.score += ps.noPairs.get(1).getScore() * 13;
+			this.score += ps.noPairs.get(0).getScore();
+		}
+		else {
+			this.name = HandName.NO_PAIRS;
+			this.score = 10*13*13*13*13*13;
+			this.score += ps.noPairs.get(4).getScore() * 13*13*13*13;
+			this.score += ps.noPairs.get(3).getScore() * 13*13*13;
+			this.score += ps.noPairs.get(2).getScore() * 13*13;
+			this.score += ps.noPairs.get(1).getScore() * 13;
+			this.score += ps.noPairs.get(0).getScore();
+		}
 	}
 
 	public boolean isStraight() {
@@ -50,11 +127,67 @@ public class Hand {
 		return true;		
 	}
 	
+	public boolean isTwoPairs() {
+		Map<Integer,List<Card>> pairs = getPairs();
+		int num = 0;
+		for(Integer k : pairs.keySet()) {
+			if(2 == pairs.get(k).size()) {
+				num++;
+			}
+		}
+		return num==2;	
+	}
+
+	public boolean isPairs() {
+		Map<Integer,List<Card>> pairs = getPairs();
+		int num = 0;
+		for(Integer k : pairs.keySet()) {
+			if(2 == pairs.get(k).size()) {
+				num++;
+			}
+		}
+		return num==1;	
+	}
+
+	public boolean isThreeCard() {
+		Map<Integer,List<Card>> pairs = getPairs();
+		for(Integer k : pairs.keySet()) {
+			if(3 == pairs.get(k).size()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isFourCard() {
+		Map<Integer,List<Card>> pairs = getPairs();
+		for(Integer k : pairs.keySet()) {
+			if(4 == pairs.get(k).size()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Map<Integer, List<Card>> getPairs() {
+		Map<Integer, List<Card>> ret = new HashMap<>();
+		this.cards.sort(Card.newPokaComparator());
+		for(int i=0;i<this.cards.size();i++) {
+			Card card = cards.get(i);
+			if(!ret.containsKey(card.getNumber())) {
+				ret.put(card.getNumber(), new ArrayList<Card>());	
+			}
+			ret.get(card.getNumber()).add(card);
+		}
+		return ret;
+	}
+	
 	@NoTest
 	public static Hand createUnsafe(String data) {
 		try {
 			return Hand.create(data);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -70,6 +203,7 @@ public class Hand {
 			hand.cards.add(Card.create(cardbase));
 		}
 		hand.cards.sort(Card.newPokaComparator());
+		hand.calcScoreAndName();
 		return hand;
 	}
 }

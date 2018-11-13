@@ -40,10 +40,19 @@ public class Card {
 		return this.number;
 	}
 
+	public int getScore() {
+		if(this.number == 1) {
+			return 13;
+		} else {
+			return this.number-1;
+		}
+	}
+
 	@Override
 	public String toString() {
 		return this.type.toShortName() + this.number;
 	}
+
 	public static Comparator<Card> newPokaComparator() {
 		return new Comparator<Card>() {
 			public int compare(Card c1, Card c2) {
