@@ -23,10 +23,6 @@ import org.springframework.test.web.servlet.MvcResult;
 @AutoConfigureMockMvc
 public class RequestTest {
 
-    @Test
-    public void contextLoads() throws Exception {
-    }
-
 	@Autowired
     private MockMvc mockMvc;
 
