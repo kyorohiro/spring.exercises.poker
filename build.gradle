@@ -1,0 +1,47 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.0.RELEASE")
+  }
+}
+
+
+apply plugin: "java"
+apply plugin: "eclipse"
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+/*
+plugins {
+    // Apply the java plugin to add support for Java
+    id 'java'
+    id 'eclipse'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+}
+*/
+bootJar {
+  baseName = 'poker-service'
+  version = "0.1.0"
+}
+
+
+// Define the main class for the application
+//mainClassName = 'App'
+
+dependencies {
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.0.RELEASE'
+  compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+  compile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.1'  
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.6.RELEASE'
+  compile 'org.projectlombok:lombok:1.18.4'
+  testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.0.RELEASE'
+  //  testCompile 'junit:junit:4.12'
+}
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    mavenCentral()
+   //x jcenter()
+}
