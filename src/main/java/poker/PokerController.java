@@ -35,7 +35,7 @@ public class PokerController {
 		PokerListResponseDao response = new PokerListResponseDao();
 		
 		List<Hand> handList = new ArrayList<>();
-		for(String handSrc : request.cards) {
+		for(String handSrc : request.hands) {
 			handList.add(Hand.create(handSrc));
 		}
 		handList.sort(Hand.newPokaComparator());
@@ -65,7 +65,7 @@ class PokerRequestDao {
 
 @Data
 class PokerListRequestDao {
-	List<String> cards;
+	List<String> hands;
 	public PokerListRequestDao() {
 		
 	}
