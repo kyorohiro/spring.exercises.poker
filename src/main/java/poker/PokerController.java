@@ -1,6 +1,7 @@
 package poker;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,9 @@ import core.Hand;
 import lombok.Data;
 
 
+/*
+ * curl http://localhost:8080/poka/scores -X POST -H "Content-Type: application/json" -d '{"cards": ["S1 S2 S3 S4 S5"]}'
+ */
 @RestController
 public class PokerController {
 
@@ -27,9 +31,15 @@ public class PokerController {
 	}
 
 	@RequestMapping(path="/poka/scores", method=RequestMethod.POST)
-	public PokerResponseDao getPokerRole(@RequestBody PokerListRequestDao request) throws Exception {
-		Hand hand = Hand.create(request.cards.get(0));
-		return new PokerResponseDao(hand.getName().getName());
+	public PokerListResponseDao getPokerRole(@RequestBody PokerListRequestDao request) throws Exception {
+		PokerListResponseDao response = new PokerListResponseDao();
+		response.result = new ArrayList<>();
+		
+		for(String handSrc : request.cards) {
+			Hand hand = Hand.create(handSrc);
+			response.result.add(new CardDao(hand.getName().getName(), false));
+		}
+		return response;
 	}
 }
 
@@ -59,6 +69,28 @@ class PokerResponseDao {
 	public PokerResponseDao(String scoreName) {
 		this.scoreName = scoreName;
 	}
+}
+
+
+@Data
+class CardDao {
+	String card;
+	boolean best;
+	public CardDao() {;}
+	public CardDao(String card, boolean best) {
+		this.card = card;
+		this.best = best;
+	}
+}
+
+@Data 
+class PokerListResponseDao {
+
+	List<CardDao> result; 
+
+	public PokerListResponseDao() {
+	}
+	
 }
 
 @Data

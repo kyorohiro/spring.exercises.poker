@@ -128,7 +128,7 @@ public class Hand {
 	}
 	
 	public boolean isTwoPairs() {
-		Map<Integer,List<Card>> pairs = getPairs();
+		Map<Integer,List<Card>> pairs = Pairs.getPairs(this.cards);
 		int num = 0;
 		for(Integer k : pairs.keySet()) {
 			if(2 == pairs.get(k).size()) {
@@ -139,7 +139,7 @@ public class Hand {
 	}
 
 	public boolean isPairs() {
-		Map<Integer,List<Card>> pairs = getPairs();
+		Map<Integer,List<Card>> pairs = Pairs.getPairs(this.cards);
 		int num = 0;
 		for(Integer k : pairs.keySet()) {
 			if(2 == pairs.get(k).size()) {
@@ -150,7 +150,7 @@ public class Hand {
 	}
 
 	public boolean isThreeCard() {
-		Map<Integer,List<Card>> pairs = getPairs();
+		Map<Integer,List<Card>> pairs = Pairs.getPairs(this.cards);
 		for(Integer k : pairs.keySet()) {
 			if(3 == pairs.get(k).size()) {
 				return true;
@@ -160,7 +160,7 @@ public class Hand {
 	}
 
 	public boolean isFourCard() {
-		Map<Integer,List<Card>> pairs = getPairs();
+		Map<Integer,List<Card>> pairs = Pairs.getPairs(this.cards);
 		for(Integer k : pairs.keySet()) {
 			if(4 == pairs.get(k).size()) {
 				return true;
@@ -169,18 +169,6 @@ public class Hand {
 		return false;
 	}
 
-	public Map<Integer, List<Card>> getPairs() {
-		Map<Integer, List<Card>> ret = new HashMap<>();
-		this.cards.sort(Card.newPokaComparator());
-		for(int i=0;i<this.cards.size();i++) {
-			Card card = cards.get(i);
-			if(!ret.containsKey(card.getNumber())) {
-				ret.put(card.getNumber(), new ArrayList<Card>());	
-			}
-			ret.get(card.getNumber()).add(card);
-		}
-		return ret;
-	}
 	
 	@NoTest
 	public static Hand createUnsafe(String data) {

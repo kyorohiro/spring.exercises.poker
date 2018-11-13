@@ -13,7 +13,7 @@ public class Pairs {
 	List<Card> noPairs = new LinkedList<>();
 
 	public Pairs(List<Card> cards) {
-		Map<Integer, List<Card>> ps =  getPairs(cards);
+		Map<Integer, List<Card>> ps =  Pairs.getPairs(cards);
 		for(Integer k : ps.keySet()) {
 			if(4 == ps.get(k).size()) {
 				fourCard = ps.get(k).get(0);
@@ -32,7 +32,7 @@ public class Pairs {
 		noPairs.sort(Card.newPokaComparator());
 	}
 
-	public Map<Integer, List<Card>> getPairs(List<Card> cards) {
+	public static Map<Integer, List<Card>> getPairs(List<Card> cards) {
 		Map<Integer, List<Card>> ret = new LinkedHashMap<>();
 		cards.sort(Card.newPokaComparator());
 		for(int i=0;i<cards.size();i++) {
