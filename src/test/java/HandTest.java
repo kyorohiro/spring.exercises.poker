@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -47,6 +48,13 @@ public class HandTest {
 		Hand noPairs = Hand.createUnsafe("S1 D9 S2 S3 S5");
 		assertEquals("", HandName.NO_PAIRS, noPairs.getName());
 
+		assertTrue("", straighFlush.getScore() > four.getScore());
+		assertTrue("", four.getScore() > fullHouse.getScore());
+		assertTrue("", fullHouse.getScore() > flush.getScore());
+		assertTrue("", flush.getScore() > straight.getScore());
+		assertTrue("", straight.getScore() > three.getScore());
+		assertTrue("", twoPairs.getScore() > pairs.getScore());
+		assertTrue("", pairs.getScore() > noPairs.getScore());
 	}
 
 	@Test
