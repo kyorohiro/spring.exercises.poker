@@ -33,11 +33,23 @@ public class PokerController {
 	@RequestMapping(path="/poka/scores", method=RequestMethod.POST)
 	public PokerListResponseDao getPokerRole(@RequestBody PokerListRequestDao request) throws Exception {
 		PokerListResponseDao response = new PokerListResponseDao();
-		response.result = new ArrayList<>();
 		
+		List<Hand> handList = new ArrayList<>();
 		for(String handSrc : request.cards) {
-			Hand hand = Hand.create(handSrc);
-			response.result.add(new CardDao(hand.getName().getName(), false));
+			handList.add(Hand.create(handSrc));
+		}
+		handList.sort(Hand.newPokaComparator());
+		response.result = new ArrayList<>();
+		for(Hand h : handList) {
+			response.result.add(new CardDao(h.getName().getName(), false));			
+		}
+		if(handList.size() == 1) {
+			response.result.get(0).best = true;
+		}
+		else if(handList.size() > 1) {
+			if(handList.get(0).getScore() != handList.get(1).getScore()) {
+				response.result.get(0).best = true;
+			}
 		}
 		return response;
 	}

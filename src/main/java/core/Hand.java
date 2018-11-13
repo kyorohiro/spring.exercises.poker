@@ -1,7 +1,7 @@
 package core;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -193,5 +193,13 @@ public class Hand {
 		hand.cards.sort(Card.newPokaComparator());
 		hand.calcScoreAndName();
 		return hand;
+	}
+
+	public static Comparator<Hand> newPokaComparator() {
+		return new Comparator<Hand>() {
+			public int compare(Hand c1, Hand c2) {
+				return (c1.score > c2.score?1:-1);
+			}
+		};
 	}
 }
