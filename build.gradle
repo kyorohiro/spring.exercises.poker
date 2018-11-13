@@ -45,3 +45,9 @@ repositories {
     mavenCentral()
    //x jcenter()
 }
+
+test {
+    testLogging {
+        showStandardStreams = true
+    }
+}

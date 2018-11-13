@@ -1,5 +1,10 @@
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Test;
 
 import core.Card;
@@ -77,10 +82,10 @@ public class CoreTest {
 			assertTrue("S0 passed", true);
 		}
 		try {
-			card = Card.create("S13");
-			fail("S13");
+			card = Card.create("S14");
+			fail("S14");
 		} catch (Exception e) {
-			assertTrue("S13 passed", true);
+			assertTrue("S14 passed", true);
 		}
 
 		try {
@@ -97,4 +102,23 @@ public class CoreTest {
 			assertTrue(" passed", true);
 		}
 	}
+
+	@Test
+	public void testCardSort() {
+		Arrays.asList(10,20,30,40,50,60,71,80,90,91);
+		List<Card> cards = Arrays.asList(
+				Card.createUnsafe("S1"),Card.createUnsafe("S5"),Card.createUnsafe("S3"),
+				Card.createUnsafe("D3"),Card.createUnsafe("S4")
+		);
+		//cards.forEach(card->{System.out.println(">>s>>"+card.getNumber());});		
+		cards.sort(Card.newPokaComparator());
+		//cards.forEach(card->{System.out.println(">>>>"+card.getNumber());});
+		
+		assertEquals("sort 0", 1, cards.get(0).getNumber());	
+		assertEquals("sort 0", 3, cards.get(1).getNumber());	
+		assertEquals("sort 0", 3, cards.get(2).getNumber());	
+		assertEquals("sort 0", 4, cards.get(3).getNumber());	
+		assertEquals("sort 0", 5, cards.get(4).getNumber());
+	}
+	
 }

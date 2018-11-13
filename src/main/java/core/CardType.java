@@ -3,10 +3,25 @@ package core;
 import javassist.NotFoundException;
 
 public enum CardType {
-	SPADE,
-	HEART,
-	DIAMOND,
-	CLUB;
+	SPADE(4, "S"),
+	HEART(3, "H"),
+	DIAMOND(2, "D"),
+	CLUB(1, "C");
+	
+	private final int code;
+	private final String shortName;
+	CardType(int code, String shortName) {
+		this.code = code;
+		this.shortName = shortName;
+	}
+
+	public int toCode() {
+        return code;
+    }
+ 
+	public String toShortName() {
+		return shortName;
+	}
 	
 	@NoTest
 	static public boolean valid(String data) {
