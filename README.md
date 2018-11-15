@@ -2,7 +2,7 @@
 
 This is a exercises for leaning spring boot.
 
-## STEP1 Rest API for poker
+## STEP1 Crate Rest API for poker
 
 
 ```
@@ -21,4 +21,8 @@ curl http://localhost:8080/poker/hands -X POST -H "Content-Type: application/jso
 ```
 
 
-## STEP2 ADD HISTORY ON DB
+## STEP2 Save request log on DB and show this log at Rest API
+
+
+
+
