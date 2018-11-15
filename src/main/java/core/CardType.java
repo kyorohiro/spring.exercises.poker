@@ -22,9 +22,9 @@ public enum CardType {
 	}
 
 	/**
-	 * convert code. 
-	 * SPADE is 4, HEART is 3, DIAMOND is 2, CLUB is 1
+	 * convert to integer code. 
 	 * @return
+	 *   SPADE is 4, HEART is 3, DIAMOND is 2, CLUB is 1
 	 */
 	public int toCode() {
         return code;
@@ -32,18 +32,21 @@ public enum CardType {
 
 	/**
 	 * convert short name. 
-	 * SPADE is 'S', HEART is 'H', DIAMOND is 'D', CLUB is 'C'
 	 * @return
+	 * 	 SPADE is 'S', HEART is 'H', DIAMOND is 'D', CLUB is 'C'
 	 */
 	public String toShortName() {
 		return shortName;
 	}
 
 	/**
-	 * Create CardType Object from shortName.
+	 * Create  {@code CardType} Object from shortName.
 	 * @param shortName
-	 * @return
+	 *   CardType's shortName
+	 * @return 
+	 *   return  {@code CardType}
 	 * @throws NotFoundException
+	 *   throw this error, unless 'S' or 'H' or 'D' or 'C' 's parameter as shortName.
 	 */
 	static public CardType create(char shortName) throws NotFoundException{
 		switch(shortName) {
