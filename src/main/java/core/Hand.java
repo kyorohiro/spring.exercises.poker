@@ -107,7 +107,7 @@ public class Hand {
 	}
 
 	private void calcScoreAndName() {
-		Pairs ps = new Pairs(this.cards);
+		HandAnalyzer ps = new HandAnalyzer(this.cards);
 		if(isFlush() && isStraight()) {
 			this.name = HandType.STRAIGHT_FLUSH;
 			this.score = 90*13*13*13*13*13;
@@ -199,7 +199,7 @@ public class Hand {
 	}
 	
 	private boolean isTwoPairs() {
-		Map<Integer,List<Card>> pairs = Pairs.getPairs(this.cards);
+		Map<Integer,List<Card>> pairs = HandAnalyzer.getPairs(this.cards);
 		int num = 0;
 		for(Integer k : pairs.keySet()) {
 			if(2 == pairs.get(k).size()) {
@@ -210,7 +210,7 @@ public class Hand {
 	}
 
 	private boolean isPairs() {
-		Map<Integer,List<Card>> pairs = Pairs.getPairs(this.cards);
+		Map<Integer,List<Card>> pairs = HandAnalyzer.getPairs(this.cards);
 		int num = 0;
 		for(Integer k : pairs.keySet()) {
 			if(2 == pairs.get(k).size()) {
@@ -221,7 +221,7 @@ public class Hand {
 	}
 
 	private boolean isThreeCard() {
-		Map<Integer,List<Card>> pairs = Pairs.getPairs(this.cards);
+		Map<Integer,List<Card>> pairs = HandAnalyzer.getPairs(this.cards);
 		for(Integer k : pairs.keySet()) {
 			if(3 == pairs.get(k).size()) {
 				return true;
@@ -231,7 +231,7 @@ public class Hand {
 	}
 
 	private boolean isFourCard() {
-		Map<Integer,List<Card>> pairs = Pairs.getPairs(this.cards);
+		Map<Integer,List<Card>> pairs = HandAnalyzer.getPairs(this.cards);
 		for(Integer k : pairs.keySet()) {
 			if(4 == pairs.get(k).size()) {
 				return true;

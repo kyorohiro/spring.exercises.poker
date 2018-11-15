@@ -9,14 +9,18 @@ import java.util.Map;
 /**
  * Utilities And Package private class.
  */
-class Pairs {
+class HandAnalyzer {
 	List<Card> pairs = new LinkedList<>();
 	Card threeCard = null;
 	Card fourCard = null;
 	List<Card> noPairs = new LinkedList<>();
 
-	public Pairs(List<Card> cards) {
-		Map<Integer, List<Card>> ps =  Pairs.getPairs(cards);
+	public HandAnalyzer(List<Card> cards) {
+		analyzeAboutPairs(cards);
+	}
+
+	public void analyzeAboutPairs(List<Card> cards) {
+		Map<Integer, List<Card>> ps =  HandAnalyzer.getPairs(cards);
 		for(Integer k : ps.keySet()) {
 			if(4 == ps.get(k).size()) {
 				fourCard = ps.get(k).get(0);
