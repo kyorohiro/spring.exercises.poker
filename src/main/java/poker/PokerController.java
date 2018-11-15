@@ -47,7 +47,7 @@ public class PokerController {
 
 		response.result = new ArrayList<>();
 		for(Hand h : handList) {
-			response.result.add(new CardDao(h.getName().getName(), false));			
+			response.result.add(new CardDao(h.getHandString(), h.getName().getName(), false));			
 		}
 		if(handList.size() == 1) {
 			response.result.get(0).best = true;
@@ -93,11 +93,13 @@ class PokerResponseDao {
 @Data
 class CardDao {
 	String card;
+	String hand;
 	boolean best;
 	public CardDao() {;}
-	public CardDao(String card, boolean best) {
+	public CardDao(String card, String hand, boolean best) {
 		this.card = card;
 		this.best = best;
+		this.hand = hand;
 	}
 }
 
