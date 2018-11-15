@@ -9,7 +9,7 @@ import org.junit.Test;
 import core.Card;
 import core.CardType;
 
-public class CoreTest {
+public class CardTest {
 
 	@Test
 	public void testCardType() {

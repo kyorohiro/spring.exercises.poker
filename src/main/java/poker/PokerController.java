@@ -19,9 +19,6 @@ import core.Hand;
 import lombok.Data;
 
 
-/*
- * curl http://localhost:8080/poka/scores -X POST -H "Content-Type: application/json" -d '{"cards": ["S1 S2 S3 S4 S5"]}'
- */
 @RestController
 public class PokerController {
 
