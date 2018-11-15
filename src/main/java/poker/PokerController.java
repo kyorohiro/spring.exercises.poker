@@ -28,13 +28,13 @@ public class PokerController {
 	@Autowired
 	PokerService pokerService;
 
-	@RequestMapping(path="/poka/score", method=RequestMethod.POST)
+	@RequestMapping(path="/poker/hand", method=RequestMethod.POST)
 	public PokerResponseDao getPokerRole(@RequestBody PokerRequestDao request) throws Exception {
 		Hand hand = pokerService.getHand(request.cards);
-		return new PokerResponseDao(hand.getName().getName());
+		return new PokerResponseDao(hand.getCardsAsString(), hand.getName().getName());
 	}
 
-	@RequestMapping(path="/poka/scores", method=RequestMethod.POST)
+	@RequestMapping(path="/poker/hands", method=RequestMethod.POST)
 	public PokerListResponseDao getPokerRole(@RequestBody PokerListRequestDao request) throws Exception {
 		PokerListResponseDao response = new PokerListResponseDao();
 		
@@ -47,7 +47,7 @@ public class PokerController {
 
 		response.result = new ArrayList<>();
 		for(Hand h : handList) {
-			response.result.add(new CardDao(h.getHandString(), h.getName().getName(), false));			
+			response.result.add(new CardDao(h.getCardsAsString(), h.getName().getName(), false));			
 		}
 		if(handList.size() == 1) {
 			response.result.get(0).best = true;
@@ -79,13 +79,15 @@ class PokerListRequestDao {
 
 @Data 
 class PokerResponseDao {
-	String scoreName;
+	String cards;
+	String hand;
 
 	public PokerResponseDao() {
 	}
 
-	public PokerResponseDao(String scoreName) {
-		this.scoreName = scoreName;
+	public PokerResponseDao(String cards, String hand) {
+		this.hand = hand;
+		this.cards = cards;
 	}
 }
 

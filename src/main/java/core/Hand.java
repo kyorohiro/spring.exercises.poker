@@ -23,7 +23,7 @@ public class Hand {
 		return score;
 	}
 	
-	public String getHandString() {
+	public String getCardsAsString() {
 		StringBuilder builder = new StringBuilder();
 		for(int i=0;i<cards.size();i++) {
 			if(i>0) {
@@ -36,7 +36,7 @@ public class Hand {
 
 	@Override
 	public String toString() {
-		return this.getHandString();
+		return this.getCardsAsString();
 	}
 
 	private void calcScoreAndName() {
