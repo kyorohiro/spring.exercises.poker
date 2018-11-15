@@ -30,14 +30,14 @@ public class RequestTest {
 	@Test
 	public void helloRequest() throws Exception {
 		MvcResult result = this.mockMvc.perform(
-				post("/poka/score")
+				post("/poker/hand")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("{\"cards\":\"S1 S2 S3 S4 S5\"}")
 		).andReturn();
 		String content = result.getResponse().getContentAsString();
 		JsonParser parser = JsonParserFactory.getJsonParser();
 		Map<String,Object> ret =parser.parseMap(content);
-		assertEquals("", "Straight Flush",ret.get("scoreName"));
+		assertEquals("", "Straight Flush",ret.get("hand"));
 	}
 
 }
