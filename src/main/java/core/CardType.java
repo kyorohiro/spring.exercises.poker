@@ -2,6 +2,12 @@ package core;
 
 import javassist.NotFoundException;
 
+/**
+ * The {@code CardType} class represents card type .
+ * Which has SPADE and HEART and DIAMOND and CLUB
+ * 
+ * @author kyorohiro
+ */
 public enum CardType {
 	SPADE(4, "S"),
 	HEART(3, "H"),
@@ -15,6 +21,10 @@ public enum CardType {
 		this.shortName = shortName;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int toCode() {
         return code;
     }
@@ -35,9 +45,15 @@ public enum CardType {
 			return false;
 		}
 	}
-	
-	static public CardType create(char c) throws NotFoundException{
-		switch(c) {
+
+	/**
+	 * Ccreate CardType Object from shortName.
+	 * @param c
+	 * @return
+	 * @throws NotFoundException
+	 */
+	static public CardType create(char shortName) throws NotFoundException{
+		switch(shortName) {
 			case 'S': return CardType.SPADE;
 			case 'H': return CardType.HEART;
 			case 'D': return CardType.DIAMOND;
