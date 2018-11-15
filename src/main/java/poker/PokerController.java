@@ -29,17 +29,17 @@ public class PokerController {
 	PokerService pokerService;
 
 	@RequestMapping(path="/poker/hand", method=RequestMethod.POST)
-	public PokerResponseDao getPokerRole(@RequestBody PokerRequestDao request) throws Exception {
+	public PokerResponse getPokerRole(@RequestBody PokerRequest request) throws Exception {
 		Hand hand = pokerService.getHand(request.cards);
-		return new PokerResponseDao(hand.getCardsAsString(), hand.getName().getName());
+		return new PokerResponse(hand.getCardsAsString(), hand.getName().getName());
 	}
 
 	@RequestMapping(path="/poker/hands", method=RequestMethod.POST)
-	public PokerListResponseDao getPokerRole(@RequestBody PokerListRequestDao request) throws Exception {
-		PokerListResponseDao response = new PokerListResponseDao();
+	public PokerListResponse getPokerRole(@RequestBody PokerListRequest request) throws Exception {
+		PokerListResponse response = new PokerListResponse();
 		
 		List<Hand> handList = new ArrayList<>();
-		for( PokerRequestDao handSrc : request.hands) {
+		for( PokerRequest handSrc : request.hands) {
 			handList.add(Hand.create(handSrc.cards));
 		}
 		
@@ -47,7 +47,7 @@ public class PokerController {
 
 		response.result = new ArrayList<>();
 		for(Hand h : handList) {
-			response.result.add(new CardDao(h.getCardsAsString(), h.getName().getName(), false));			
+			response.result.add(new PokerListResponse.Card(h.getCardsAsString(), h.getName().getName(), false));			
 		}
 		if(handList.size() == 1) {
 			response.result.get(0).best = true;
@@ -61,74 +61,67 @@ public class PokerController {
 	}
 }
 
-@Data
-class PokerRequestDao {
-	String cards;
-	public PokerRequestDao() {
-		
-	}
-}
-
-@Data
-class PokerListRequestDao {
-	List<PokerRequestDao> hands;
-	public PokerListRequestDao() {
-		
-	}
-}
-
-@Data 
-class PokerResponseDao {
-	String cards;
-	String hand;
-
-	public PokerResponseDao() {
-	}
-
-	public PokerResponseDao(String cards, String hand) {
-		this.hand = hand;
-		this.cards = cards;
-	}
-}
-
-
-@Data
-class CardDao {
-	String card;
-	String hand;
-	boolean best;
-	public CardDao() {;}
-	public CardDao(String card, String hand, boolean best) {
-		this.card = card;
-		this.best = best;
-		this.hand = hand;
-	}
-}
-
-@Data 
-class PokerListResponseDao {
-
-	List<CardDao> result; 
-
-	public PokerListResponseDao() {
-	}
-	
-}
-
-@Data
-class ErrorResponseDao {
-	int code = 3;
-	String description = "xxx";
-	public ErrorResponseDao() {}
-}
-
 @ControllerAdvice
 class EmployeeNotFoundAdvice {
 
 	@ResponseBody
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(code=HttpStatus.BAD_REQUEST)
-	ErrorResponseDao employeeNotFoundHandler(Exception ex) {
-		return new ErrorResponseDao();
+	ErrorResponse employeeNotFoundHandler(Exception ex) {
+		return new ErrorResponse();
 	}
 }
+
+@Data
+class PokerRequest {
+	String cards;
+	public PokerRequest() {}
+}
+
+@Data
+class PokerListRequest {
+	List<PokerRequest> hands;
+	public PokerListRequest() {}
+}
+
+@Data 
+class PokerResponse {
+	String cards;
+	String hand;
+
+	public PokerResponse() {}
+
+	public PokerResponse(String cards, String hand) {
+		this.hand = hand;
+		this.cards = cards;
+	}
+}
+
+@Data 
+class PokerListResponse {
+
+	List<Card> result; 
+
+	public PokerListResponse() {}
+
+	@Data
+	static class Card {
+		String card;
+		String hand;
+		boolean best;
+		public Card() {;}
+		public Card(String card, String hand, boolean best) {
+			this.card = card;
+			this.best = best;
+			this.hand = hand;
+		}
+	}
+}
+
+@Data
+class ErrorResponse {
+	int code = 3;
+	String description = "xxx";
+	public ErrorResponse() {}
+}
+
