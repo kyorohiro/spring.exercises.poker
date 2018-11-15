@@ -55,3 +55,15 @@ test {
         html.enabled = true
     }
 }
+
+task myJavadocs(type: Javadoc) {
+	source = sourceSets.main.allJava
+	classpath = configurations.compile
+}
+sourceSets {
+    build {
+        java.srcDir file('src/main/java')
+
+    }
+}
+

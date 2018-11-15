@@ -4,7 +4,7 @@ import javassist.NotFoundException;
 
 /**
  * The {@code CardType} class represents card type .
- * Which has SPADE and HEART and DIAMOND and CLUB
+ * Which express SPADE and HEART and DIAMOND and CLUB for poker card game. 
  * 
  * @author kyorohiro
  */
@@ -22,33 +22,26 @@ public enum CardType {
 	}
 
 	/**
-	 * 
+	 * convert code. 
+	 * SPADE is 4, HEART is 3, DIAMOND is 2, CLUB is 1
 	 * @return
 	 */
 	public int toCode() {
         return code;
     }
- 
+
+	/**
+	 * convert short name. 
+	 * SPADE is 'S', HEART is 'H', DIAMOND is 'D', CLUB is 'C'
+	 * @return
+	 */
 	public String toShortName() {
 		return shortName;
 	}
-	
-	@NoTest
-	static public boolean valid(String data) {
-		if(data.length() <= 0) {
-			return false;
-		}
-		try {
-			CardType.create(data.charAt(0));
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
 
 	/**
-	 * Ccreate CardType Object from shortName.
-	 * @param c
+	 * Create CardType Object from shortName.
+	 * @param shortName
 	 * @return
 	 * @throws NotFoundException
 	 */
