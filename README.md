@@ -7,7 +7,7 @@ This is a exercises for leaning spring boot.
 
 ```
 
-curl http://localhost:8080/poker/h -X POST -H "Content-Type: application/json" -d '{"cards":"S1 S2 S3 S4 S5"}'
+curl http://localhost:8080/poker/hand -X POST -H "Content-Type: application/json" -d '{"cards":"S1 S2 S3 S4 S5"}'
 
 {"cards":"S1 S2 S3 S4 S5","hand":"Straight Flush"}
 

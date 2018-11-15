@@ -2,6 +2,11 @@ package core;
 
 import java.util.Comparator;
 
+/**
+ * {@code Card} class reprsented Card for Poker Game.
+ * @author kyorohiro
+ *
+ */
 public class Card {
 	
 	private Card() {}
@@ -17,20 +22,36 @@ public class Card {
 		}
 	}
 
-	public static Card create(String data) throws Exception {
+	/**
+	 * Create Card Object from short card data.
+	 * ex "S1 S2 S3 S4 S5"
+	 * format is
+	 *   CARDS := {@code CardType#toShortName()} [1-9][0-3]?
+	 * 
+	 * @param data
+	 *   short cards data
+	 * @return
+	 *   {@code Card} object
+	 * @throws PokerCoreException
+	 */
+	public static Card create(String data) throws PokerCoreException {
+		if(data == null || data.length() <=1) {
+			throw new PokerCoreException(PokerCoreException.Type.WRONG_CARD_NAME);			
+		}
+
 		data = data.trim();
 		CardType cardType = CardType.create(data.charAt(0));
-
-		int cardNumber = Integer.parseInt(data.substring(1));
-
-		if( 1<=cardNumber  && cardNumber <=13) {
-			Card card = new Card();
-			card.type = cardType;
-			card.number = cardNumber;
-			return card;
-		} else {
-			throw new Exception("Wrong data number :" + data);
-		}
+		
+		try {
+			int cardNumber = Integer.parseInt(data.substring(1));
+			if( 1<=cardNumber  && cardNumber <=13) {
+				Card card = new Card();
+				card.type = cardType;
+				card.number = cardNumber;
+				return card;
+			}
+		} catch(NumberFormatException e) {}
+		throw new PokerCoreException(PokerCoreException.Type.WRONG_CARD_NAME);
 	}
 
 	public CardType getType() {
