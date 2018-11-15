@@ -1,5 +1,12 @@
 package core;
 
+
+/**
+* The class {@code PokerCoreException} and its subclasses are a form of
+* {@code Exception} that has {@code Type}.
+*
+* You can determine the reason of Error by {@code Type}. 
+*/
 @SuppressWarnings("serial")
 public class PokerCoreException extends Exception {
 	private final Type type;
@@ -8,11 +15,22 @@ public class PokerCoreException extends Exception {
 		this.type = type;
 	}
 	
+	/**
+	 * @return
+	 *   return {code {@link Type}} object
+	 */
 	public Type getType() {
 		return this.type;
 	}
 
+	/**
+	 * {code PokerCoreException} 's reason.
+	 *
+	 */
 	static public enum Type{
+		/**
+		 * if WrongCardName
+		 */
 		WRONG_CARD_NAME(1);
 
 		private final int code;
@@ -21,6 +39,10 @@ public class PokerCoreException extends Exception {
 			this.code = code;
 		}
 
+		/**
+		 * @return
+		 * return as integer code.
+		 */
 		public int toCode() {
 			return code;
 		}

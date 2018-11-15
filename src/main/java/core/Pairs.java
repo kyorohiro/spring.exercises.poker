@@ -6,7 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class Pairs {
+/**
+ * Utilities And Package private class.
+ */
+class Pairs {
 	List<Card> pairs = new LinkedList<>();
 	Card threeCard = null;
 	Card fourCard = null;
