@@ -1,4 +1,9 @@
-# spring test poka
+# Poker API
+
+This is a exercises for leaning spring boot.
+
+## STEP1 Rest API for poker
+
 
 ```
 
@@ -15,3 +20,5 @@ curl http://localhost:8080/poker/hands -X POST -H "Content-Type: application/jso
 {"result":[{"card":"S1 S2 S3 S4 S5","hand":"Straight Flush","best":true},{"card":"S9 S10 S11 S12 S13","hand":"Straight Flush","best":false}]}
 ```
 
+
+## STEP2 ADD HISTORY ON DB
