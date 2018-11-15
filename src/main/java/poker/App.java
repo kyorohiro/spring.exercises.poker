@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Service;
 
 import core.Hand;
+import core.PokerCoreException;
 
 
 @SpringBootApplication
@@ -19,8 +20,8 @@ public class App extends SpringApplication{
 class PokerServiceImpl implements PokerService {
 
 	@Override
-	public Hand getHand(String cardsSrc) {
-		return  Hand.createUnsafe(cardsSrc);
+	public Hand getHand(String cardsSrc) throws PokerCoreException{
+		return  Hand.create(cardsSrc);
 	}
 
 	@Override

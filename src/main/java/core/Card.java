@@ -37,7 +37,7 @@ public class Card {
 	 */
 	public static Card create(String data) throws PokerCoreException {
 		if(data == null || data.length() <=1) {
-			throw new PokerCoreException(PokerCoreException.Type.WRONG_CARD_NAME);			
+			throw new PokerCoreException(PokerCoreException.Type.WRONG_CARD_NAME, ""+data);			
 		}
 
 		data = data.trim();
@@ -52,7 +52,7 @@ public class Card {
 				return card;
 			}
 		} catch(NumberFormatException e) {}
-		throw new PokerCoreException(PokerCoreException.Type.WRONG_CARD_NAME);
+		throw new PokerCoreException(PokerCoreException.Type.WRONG_CARD_NAME, ""+data);
 	}
 
 	/**

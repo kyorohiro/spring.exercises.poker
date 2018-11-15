@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import core.Hand;
+import core.PokerCoreException;
 import lombok.Data;
 
 
@@ -26,7 +27,7 @@ public class PokerController {
 	PokerService pokerService;
 
 	@RequestMapping(path="/poker/hand", method=RequestMethod.POST)
-	public PokerResponse getPokerRole(@RequestBody PokerRequest request) throws Exception {
+	public PokerResponse getPokerRole(@RequestBody PokerRequest request) throws PokerCoreException {
 		Hand hand = pokerService.getHand(request.cards);
 		return new PokerResponse(hand.getCardsAsString(), hand.getType().getName());
 	}
@@ -62,10 +63,10 @@ public class PokerController {
 class EmployeeNotFoundAdvice {
 
 	@ResponseBody
-	@ExceptionHandler(Exception.class)
+	@ExceptionHandler(PokerCoreException.class)
 	@ResponseStatus(code=HttpStatus.BAD_REQUEST)
-	ErrorResponse employeeNotFoundHandler(Exception ex) {
-		return new ErrorResponse();
+	ErrorResponse employeeNotFoundHandler(PokerCoreException ex) {
+		return new ErrorResponse(ex.getType().toCode(), ex.getType().name() + ":" + ex.getDescription());
 	}
 }
 
@@ -119,6 +120,9 @@ class PokerListResponse {
 class ErrorResponse {
 	int code = 3;
 	String description = "xxx";
-	public ErrorResponse() {}
+	public ErrorResponse(int code, String description) {
+		this.code = code;
+		this.description = description;
+	}
 }
 

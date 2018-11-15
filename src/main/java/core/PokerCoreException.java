@@ -10,9 +10,10 @@ package core;
 @SuppressWarnings("serial")
 public class PokerCoreException extends Exception {
 	private final Type type;
-
-	public PokerCoreException(Type type) {
+	private final String description;
+	public PokerCoreException(Type type, String description) {
 		this.type = type;
+		this.description = description;
 	}
 	
 	/**
@@ -23,6 +24,13 @@ public class PokerCoreException extends Exception {
 		return this.type;
 	}
 
+	/**
+	 * @return
+	 *   return description
+	 */
+	public String getDescription() {
+		return this.description;
+	}
 	/**
 	 * {code PokerCoreException} 's reason.
 	 *

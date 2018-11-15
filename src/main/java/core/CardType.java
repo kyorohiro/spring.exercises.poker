@@ -53,6 +53,6 @@ public enum CardType {
 			case 'D': return CardType.DIAMOND;
 			case 'C': return CardType.CLUB;
 		}
-		throw new PokerCoreException(PokerCoreException.Type.WRONG_CARD_NAME);
+		throw new PokerCoreException(PokerCoreException.Type.WRONG_CARD_NAME, ""+shortName);
 	}
 }

@@ -5,9 +5,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import core.PokerCoreException.Type;
+
 
 /**
- * {@code Hand} class reprsented Hand for Poker Game.
+ * {@code Hand} class represented Hand for Poker Game.
  *
  */
 public class Hand {
@@ -76,10 +78,10 @@ public class Hand {
 	 * @return
 	 *   {@code Hand} object 
 	 */
-	public static Hand create(String data) throws Exception {
+	public static Hand create(String data) throws PokerCoreException {
 		String[] cardbases = data.split("[ ]+");
 		if(cardbases.length != 5) {
-			throw new Exception("Wrong card num : "+data);
+			throw new PokerCoreException(Type.WRONG_CARD_NAME, "Wrong card num : "+data);
 		}
 		Hand hand = new Hand();
 		hand.cards = new ArrayList<>();

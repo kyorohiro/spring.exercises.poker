@@ -4,6 +4,7 @@ This is a exercises for leaning spring boot.
 
 ## STEP1 Crate Rest API for poker
 
+* STEP1 is not kyorohiro original exercise.
 
 ```
 
