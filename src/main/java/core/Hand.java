@@ -9,13 +9,13 @@ import java.util.Map;
 public class Hand {
 
 	private List<Card> cards;
-	private HandName name;
+	private HandType name;
 	private long score;
 
 	private Hand() {
 	}
 
-	public  HandName getName() {
+	public  HandType getType() {
 		return this.name;
 	}
 
@@ -42,24 +42,24 @@ public class Hand {
 	private void calcScoreAndName() {
 		Pairs ps = new Pairs(this.cards);
 		if(isFlush() && isStraight()) {
-			this.name = HandName.STRAIGHT_FLUSH;
+			this.name = HandType.STRAIGHT_FLUSH;
 			this.score = 90*13*13*13*13*13;
 			this.score += ps.noPairs.get(2).getScore();
 		}
 		else if(isFourCard()) {
-			this.name = HandName.FOUR;
+			this.name = HandType.FOUR;
 			this.score = 80*13*13*13*13*13;
 			this.score += ps.fourCard.getNumber()*13;
 			this.score += ps.noPairs.get(0).getScore();
 		}
 		else if(isThreeCard() && isPairs()) {
-			this.name = HandName.FULL_HOUSE;
+			this.name = HandType.FULL_HOUSE;
 			this.score = 70*13*13*13*13*13;
 			this.score += ps.threeCard.getScore()*13;
 			this.score += ps.pairs.get(0).getScore();
 		}
 		else if(isFlush()) {
-			this.name = HandName.FLUSH;
+			this.name = HandType.FLUSH;
 			this.score = 60*13*13*13*13*13;
 			this.score += ps.noPairs.get(4).getScore() * 13*13*13*13;
 			this.score += ps.noPairs.get(3).getScore() * 13*13*13;
@@ -68,26 +68,26 @@ public class Hand {
 			this.score += ps.noPairs.get(0).getScore();
 		}
 		else if(isStraight()) {
-			this.name = HandName.STRAIGHT;
+			this.name = HandType.STRAIGHT;
 			this.score = 50*13*13*13*13*13;
 			this.score += ps.noPairs.get(2).getScore();
 		}
 		else if(isThreeCard()) {
-			this.name = HandName.THREE;
+			this.name = HandType.THREE;
 			this.score = 40*13*13*13*13*13;
 			this.score += ps.threeCard.getScore()*13;
 			this.score += ps.noPairs.get(1).getScore() * 13;
 			this.score += ps.noPairs.get(0).getScore();
 		}		
 		else if(isTwoPairs()) {
-			this.name = HandName.TWO;
+			this.name = HandType.TWO;
 			this.score = 30*13*13*13*13*13;			
 			this.score += ps.pairs.get(1).getScore() * 13*13;
 			this.score += ps.pairs.get(0).getScore() * 13;
 			this.score += ps.noPairs.get(0).getScore();
 		}
 		else if(isPairs()) {
-			this.name = HandName.ONE;
+			this.name = HandType.ONE;
 			this.score = 20*13*13*13*13*13;
 			this.score += ps.pairs.get(0).getScore() * 13*13*13;
 			this.score += ps.noPairs.get(2).getScore() * 13*13;
@@ -95,7 +95,7 @@ public class Hand {
 			this.score += ps.noPairs.get(0).getScore();
 		}
 		else {
-			this.name = HandName.NO_PAIRS;
+			this.name = HandType.NO_PAIRS;
 			this.score = 10*13*13*13*13*13;
 			this.score += ps.noPairs.get(4).getScore() * 13*13*13*13;
 			this.score += ps.noPairs.get(3).getScore() * 13*13*13;

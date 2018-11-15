@@ -1,7 +1,7 @@
 package core;
 
 
-public enum HandName {
+public enum HandType {
 	STRAIGHT_FLUSH("Straight Flush"),
 	FOUR("Four of a Kind"),
 	FULL_HOUSE("Full House"),
@@ -13,7 +13,7 @@ public enum HandName {
 	NO_PAIRS("No Pairs");
 
 	final private String name;
-	HandName(String name){
+	HandType(String name){
 		this.name = name;
 	}
 	

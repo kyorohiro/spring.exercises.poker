@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import core.Hand;
-import core.HandName;
+import core.HandType;
 
 public class HandTest {
 
@@ -23,31 +23,31 @@ public class HandTest {
 	@Test
 	public void createHand() {
 		Hand straighFlush = Hand.createUnsafe("S1 S2 S3 S4 S5");
-		assertEquals("", HandName.STRAIGHT_FLUSH, straighFlush.getName());
+		assertEquals("", HandType.STRAIGHT_FLUSH, straighFlush.getType());
 		//
 		Hand four = Hand.createUnsafe("S1 D1 C1 H1 S5");
-		assertEquals("", HandName.FOUR, four.getName());
+		assertEquals("", HandType.FOUR, four.getType());
 
 		Hand fullHouse = Hand.createUnsafe("S1 D1 C1 H5 S5");
-		assertEquals("", HandName.FULL_HOUSE, fullHouse.getName());
+		assertEquals("", HandType.FULL_HOUSE, fullHouse.getType());
 
 		Hand flush = Hand.createUnsafe("S1 S2 S3 S4 S9");
-		assertEquals("", HandName.FLUSH, flush.getName());
+		assertEquals("", HandType.FLUSH, flush.getType());
 
 		Hand straight = Hand.createUnsafe("S1 S2 D3 S4 S5");
-		assertEquals("", HandName.STRAIGHT, straight.getName());
+		assertEquals("", HandType.STRAIGHT, straight.getType());
 
 		Hand three = Hand.createUnsafe("S1 D1 C1 S3 S5");
-		assertEquals("", HandName.THREE, three.getName());
+		assertEquals("", HandType.THREE, three.getType());
 
 		Hand twoPairs = Hand.createUnsafe("S1 D1 C3 S3 S5");
-		assertEquals("", HandName.TWO, twoPairs.getName());
+		assertEquals("", HandType.TWO, twoPairs.getType());
 
 		Hand pairs = Hand.createUnsafe("S1 D1 S2 S3 S5");
-		assertEquals("", HandName.ONE, pairs.getName());
+		assertEquals("", HandType.ONE, pairs.getType());
 
 		Hand noPairs = Hand.createUnsafe("S1 D9 S2 S3 S5");
-		assertEquals("", HandName.NO_PAIRS, noPairs.getName());
+		assertEquals("", HandType.NO_PAIRS, noPairs.getType());
 
 		assertTrue("", straighFlush.getScore() > four.getScore());
 		assertTrue("", four.getScore() > fullHouse.getScore());

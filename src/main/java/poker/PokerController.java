@@ -28,7 +28,7 @@ public class PokerController {
 	@RequestMapping(path="/poker/hand", method=RequestMethod.POST)
 	public PokerResponse getPokerRole(@RequestBody PokerRequest request) throws Exception {
 		Hand hand = pokerService.getHand(request.cards);
-		return new PokerResponse(hand.getCardsAsString(), hand.getName().getName());
+		return new PokerResponse(hand.getCardsAsString(), hand.getType().getName());
 	}
 
 	@RequestMapping(path="/poker/hands", method=RequestMethod.POST)
@@ -44,7 +44,7 @@ public class PokerController {
 
 		response.result = new ArrayList<>();
 		for(Hand h : handList) {
-			response.result.add(new PokerListResponse.Card(h.getCardsAsString(), h.getName().getName(), false));			
+			response.result.add(new PokerListResponse.Card(h.getCardsAsString(), h.getType().getName(), false));			
 		}
 		if(handList.size() == 1) {
 			response.result.get(0).best = true;
