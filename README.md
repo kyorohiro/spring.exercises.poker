@@ -1,6 +1,8 @@
-# Poker API
+# 10DAY Poker Exercise For SPRING BOOT
+
 
 This is a exercises for leaning spring boot.
+
 
 ## STEP1 Crate Rest API for poker
 
@@ -22,7 +24,29 @@ curl http://localhost:8080/poker/hands -X POST -H "Content-Type: application/jso
 ```
 
 
-## STEP2 Save request log on DB and show this log at Rest API
+## STEP2 Save request log on DB and show this log at Rest API and Webpage
+
+
+
+
+## STEP3 ADD USER AND LOGIN
+
+
+
+
+## STEP4 GAME PLAY AND CHAT
+
+
+
+
+## STEP5 FOLLOW USER AND STAR 
+
+
+
+
+## EX USE MEMCACHE FOR PERFORMANCE
+
+
 
 
 
