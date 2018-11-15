@@ -1,12 +1,10 @@
 package core;
 
-import javassist.NotFoundException;
 
 /**
  * The {@code CardType} class represents card type .
  * Which express SPADE and HEART and DIAMOND and CLUB for poker card game. 
  * 
- * @author kyorohiro
  */
 public enum CardType {
 	SPADE(4, "S"),
