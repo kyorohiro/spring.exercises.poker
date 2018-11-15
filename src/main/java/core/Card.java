@@ -33,6 +33,7 @@ public class Card {
 	 * @return
 	 *   {@code Card} object
 	 * @throws PokerCoreException
+	 *   Wrong data
 	 */
 	public static Card create(String data) throws PokerCoreException {
 		if(data == null || data.length() <=1) {
@@ -54,14 +55,29 @@ public class Card {
 		throw new PokerCoreException(PokerCoreException.Type.WRONG_CARD_NAME);
 	}
 
+	/**
+	 * Get {@code CardType} Object.
+	 * @return
+	 *   return {@code CardType} Object.
+	 */
 	public CardType getType() {
 		return this.type;
 	}
 	
+	/**
+	 * Get card number.
+	 * @return
+	 *   return {@code int} 
+	 */
 	public int getNumber() {
 		return this.number;
 	}
 
+	/**
+	 * Get score. it is used A as 13, and other card as {code: {@link #getNumber()} -1.
+	 * @return
+	 *   return {@code int} 
+	 */
 	public int getScore() {
 		if(this.number == 1) {
 			return 13;
@@ -70,11 +86,20 @@ public class Card {
 		}
 	}
 
+	/**
+	 * @return
+	 *  shortname 
+	 *  ex "S1 S2 S3 S4 S5"
+	 */
 	@Override
 	public String toString() {
 		return this.type.toShortName() + this.number;
 	}
 
+	/**
+	 * @return
+	 *  return {code: {@link Hand} object's Comparator For Poker  
+	 */
 	public static Comparator<Card> newPokaComparator() {
 		return new Comparator<Card>() {
 			public int compare(Card c1, Card c2) {
