@@ -4,6 +4,7 @@ package poker;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,9 +25,12 @@ import lombok.Data;
 @RestController
 public class PokerController {
 
+	@Autowired
+	PokerService pokerService;
+
 	@RequestMapping(path="/poka/score", method=RequestMethod.POST)
 	public PokerResponseDao getPokerRole(@RequestBody PokerRequestDao request) throws Exception {
-		Hand hand = Hand.create(request.cards);
+		Hand hand = pokerService.getHand(request.cards);
 		return new PokerResponseDao(hand.getName().getName());
 	}
 
@@ -38,7 +42,9 @@ public class PokerController {
 		for( PokerRequestDao handSrc : request.hands) {
 			handList.add(Hand.create(handSrc.cards));
 		}
-		handList.sort(Hand.newPokaComparator());
+		
+		handList = pokerService.getHands(handList);
+
 		response.result = new ArrayList<>();
 		for(Hand h : handList) {
 			response.result.add(new CardDao(h.getName().getName(), false));			
