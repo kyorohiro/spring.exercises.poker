@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 
+/**
+ * {@code Hand} class reprsented Hand for Poker Game.
+ *
+ */
 public class Hand {
 
 	private List<Card> cards;
@@ -15,14 +19,26 @@ public class Hand {
 	private Hand() {
 	}
 
+	/**
+	 * @return
+	 * return {@code HandType}
+	 */
 	public  HandType getType() {
 		return this.name;
 	}
 
+	/**
+	 * @return
+	 *  return Hand 's score for sort.
+	 */
 	public long getScore() {
 		return score;
 	}
 	
+	/**
+	 * @return
+	 *  ex "S1 S2 S3 S4 S5"
+	 */
 	public String getCardsAsString() {
 		StringBuilder builder = new StringBuilder();
 		for(int i=0;i<cards.size();i++) {
@@ -34,9 +50,58 @@ public class Hand {
 		return builder.toString();
 	}
 
+	/**
+	 * @return
+	 *  ex "S1 S2 S3 S4 S5"
+	 */
 	@Override
 	public String toString() {
 		return this.getCardsAsString();
+	}
+	
+	@NoTest
+	public static Hand createUnsafe(String data) {
+		try {
+			return Hand.create(data);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * create {@code Hand} object from string data
+	 *  ex "S1 S2 S3 S4 S5"
+	 *
+	 * @return
+	 *   {@code Hand} object 
+	 */
+	public static Hand create(String data) throws Exception {
+		String[] cardbases = data.split("[ ]+");
+		if(cardbases.length != 5) {
+			throw new Exception("Wrong card num : "+data);
+		}
+		Hand hand = new Hand();
+		hand.cards = new ArrayList<>();
+		for(String cardbase : cardbases) {
+			hand.cards.add(Card.create(cardbase));
+		}
+		hand.cards.sort(Card.newPokaComparator());
+		hand.calcScoreAndName();
+		return hand;
+	}
+
+	/**
+	 * @return
+	 *  {@code Hand} object 's {@code Comparator} for sort.
+	 */
+	public static Comparator<Hand> newPokaComparator() {
+		return new Comparator<Hand>() {
+			public int compare(Hand c1, Hand c2) {
+				
+				return (c1.score == c2.score? 0: (c1.score > c2.score?1:-1));
+			}
+		};
 	}
 
 	private void calcScoreAndName() {
@@ -105,7 +170,7 @@ public class Hand {
 		}
 	}
 
-	public boolean isStraight() {
+	private boolean isStraight() {
 		this.cards.sort(Card.newPokaComparator());
 		if(cards.get(0).getNumber() == 1 && cards.get(1).getNumber() == 10 
 			&& cards.get(2).getNumber() == 11 && cards.get(3).getNumber() == 12
@@ -120,7 +185,7 @@ public class Hand {
 		return true;		
 	}
 	
-	public boolean isFlush() {
+	private boolean isFlush() {
 		this.cards.sort(Card.newPokaComparator());
 		CardType type = cards.get(0).getType();
 		for(int i=1;i<this.cards.size();i++) {
@@ -131,7 +196,7 @@ public class Hand {
 		return true;		
 	}
 	
-	public boolean isTwoPairs() {
+	private boolean isTwoPairs() {
 		Map<Integer,List<Card>> pairs = Pairs.getPairs(this.cards);
 		int num = 0;
 		for(Integer k : pairs.keySet()) {
@@ -142,7 +207,7 @@ public class Hand {
 		return num==2;	
 	}
 
-	public boolean isPairs() {
+	private boolean isPairs() {
 		Map<Integer,List<Card>> pairs = Pairs.getPairs(this.cards);
 		int num = 0;
 		for(Integer k : pairs.keySet()) {
@@ -153,7 +218,7 @@ public class Hand {
 		return num==1;	
 	}
 
-	public boolean isThreeCard() {
+	private boolean isThreeCard() {
 		Map<Integer,List<Card>> pairs = Pairs.getPairs(this.cards);
 		for(Integer k : pairs.keySet()) {
 			if(3 == pairs.get(k).size()) {
@@ -163,7 +228,7 @@ public class Hand {
 		return false;
 	}
 
-	public boolean isFourCard() {
+	private boolean isFourCard() {
 		Map<Integer,List<Card>> pairs = Pairs.getPairs(this.cards);
 		for(Integer k : pairs.keySet()) {
 			if(4 == pairs.get(k).size()) {
@@ -173,38 +238,5 @@ public class Hand {
 		return false;
 	}
 
-	
-	@NoTest
-	public static Hand createUnsafe(String data) {
-		try {
-			return Hand.create(data);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 
-	public static Hand create(String data) throws Exception {
-		String[] cardbases = data.split("[ ]+");
-		if(cardbases.length != 5) {
-			throw new Exception("Wrong card num : "+data);
-		}
-		Hand hand = new Hand();
-		hand.cards = new ArrayList<>();
-		for(String cardbase : cardbases) {
-			hand.cards.add(Card.create(cardbase));
-		}
-		hand.cards.sort(Card.newPokaComparator());
-		hand.calcScoreAndName();
-		return hand;
-	}
-
-	public static Comparator<Hand> newPokaComparator() {
-		return new Comparator<Hand>() {
-			public int compare(Hand c1, Hand c2) {
-				
-				return (c1.score == c2.score? 0: (c1.score > c2.score?1:-1));
-			}
-		};
-	}
 }
