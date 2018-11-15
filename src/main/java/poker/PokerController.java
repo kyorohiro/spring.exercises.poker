@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import core.Hand;
 import core.PokerCoreException;
 import lombok.Data;
+import poker.PokerHand;
 
 
 @RestController
@@ -28,7 +28,7 @@ public class PokerController {
 
 	@RequestMapping(path="/poker/hand", method=RequestMethod.POST)
 	public PokerResponse getPokerRole(@RequestBody PokerRequest request) throws PokerCoreException {
-		Hand hand = pokerService.getHand(request.cards);
+		PokerHand hand = pokerService.getHand(request.cards);
 		return new PokerResponse(hand.getCardsAsString(), hand.getType().getName());
 	}
 
@@ -36,15 +36,15 @@ public class PokerController {
 	public PokerListResponse getPokerRole(@RequestBody PokerListRequest request) throws Exception {
 		PokerListResponse response = new PokerListResponse();
 		
-		List<Hand> handList = new ArrayList<>();
+		List<PokerHand> handList = new ArrayList<>();
 		for( PokerRequest handSrc : request.hands) {
-			handList.add(Hand.create(handSrc.cards));
+			handList.add(pokerService.getHand(handSrc.cards));
 		}
 		
 		handList = pokerService.getHands(handList);
 
 		response.result = new ArrayList<>();
-		for(Hand h : handList) {
+		for(PokerHand h : handList) {
 			response.result.add(new PokerListResponse.Card(h.getCardsAsString(), h.getType().getName(), false));			
 		}
 		if(handList.size() == 1) {

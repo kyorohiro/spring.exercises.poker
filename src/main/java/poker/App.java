@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Service;
 
 import core.Hand;
+import core.HandType;
 import core.PokerCoreException;
 
 
@@ -20,14 +21,34 @@ public class App extends SpringApplication{
 class PokerServiceImpl implements PokerService {
 
 	@Override
-	public Hand getHand(String cardsSrc) throws PokerCoreException{
-		return  Hand.create(cardsSrc);
+	public PokerHand getHand(String cardsSrc) throws PokerCoreException{
+		return  new PokerHandImpl(Hand.create(cardsSrc));
 	}
 
 	@Override
-	public List<Hand> getHands(List<Hand> hands) {
-		hands.sort(Hand.newPokaComparator());
+	public List<PokerHand> getHands(List<PokerHand> hands) {
+		hands.sort((x,y)->x.getScore()-y.getScore());
 		return hands;
 	}
 	
+}
+
+class PokerHandImpl implements PokerHand {
+	private Hand origin;
+	
+	PokerHandImpl(Hand origin) {
+		this.origin = origin;
+	}
+	
+	public String getCardsAsString() {
+		return this.origin.getCardsAsString();
+	}
+	
+	public HandType getType() {
+		return this.origin.getType();
+	}
+
+	public int getScore() {
+		return this.origin.getScore();
+	}
 }

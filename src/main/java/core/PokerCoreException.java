@@ -31,6 +31,7 @@ public class PokerCoreException extends Exception {
 	public String getDescription() {
 		return this.description;
 	}
+
 	/**
 	 * {code PokerCoreException} 's reason.
 	 *

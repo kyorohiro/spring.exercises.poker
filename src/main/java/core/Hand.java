@@ -11,11 +11,12 @@ import core.PokerCoreException.Type;
  * {@code Hand} class represented Hand for Poker Game.
  *
  */
+
 public class Hand {
 
 	private List<Card> cards;
 	private HandType name;
-	private long score;
+	private int score;
 	private HandFeatureInfo ps;
 
 	private Hand() {
@@ -33,7 +34,7 @@ public class Hand {
 	 * @return
 	 *  return Hand 's score for sort.
 	 */
-	public long getScore() {
+	public int getScore() {
 		return score;
 	}
 	

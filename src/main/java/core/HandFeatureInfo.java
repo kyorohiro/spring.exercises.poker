@@ -17,7 +17,7 @@ class HandFeatureInfo {
 
 	public static HandFeatureInfo analyzeAndCreate(List<Card> cards) {
 		HandFeatureInfo target = new HandFeatureInfo();
-		target.pairInfo = analyzeAboutPairs(cards);
+		target.pairInfo = analyzeAndCreatePairInfo(cards);
 		target.isFlush = isFlush(cards);
 		target.isStraight = isStraight(cards);
 		return target;
@@ -29,9 +29,8 @@ class HandFeatureInfo {
 		Card threeCard = null;
 		Card fourCard = null;
 	}
-
 	
-	public static PairInfo analyzeAboutPairs(List<Card> cards) {
+	public static PairInfo analyzeAndCreatePairInfo(List<Card> cards) {
 		PairInfo info = new PairInfo();
 		Map<Integer, List<Card>> memoAboutPairs =  HandFeatureInfo.createMemoAboutPairs(cards);
 		memoAboutPairs.keySet().stream().forEach(k->{

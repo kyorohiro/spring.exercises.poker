@@ -1,11 +1,16 @@
 package poker;
 
 import java.util.List;
-
-import core.Hand;
+import core.HandType;
 import core.PokerCoreException;
 
-public interface PokerService {
-	Hand getHand(String cardsSrc) throws PokerCoreException;
-	List<Hand> getHands(List<Hand> hands);
+interface PokerService {
+	PokerHand getHand(String cardsSrc) throws PokerCoreException;
+	List<PokerHand> getHands(List<PokerHand> hands);
+}
+
+interface PokerHand {
+	String getCardsAsString();
+	HandType getType();
+	int getScore();
 }
