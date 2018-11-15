@@ -111,24 +111,24 @@ public class Hand {
 		this.cards.sort(Card.newPokaComparator());
 		if(isFlush() && isStraight()) {
 			this.name = HandType.STRAIGHT_FLUSH;
-			this.score = 90*13*13*13*13*13;
+			this.score = 9*13*13*13*13*13;
 			this.score += ps.pairInfo.noPairs.get(2).getScore();
 		}
 		else if(isFourCard()) {
 			this.name = HandType.FOUR;
-			this.score = 80*13*13*13*13*13;
+			this.score = 8*13*13*13*13*13;
 			this.score += ps.pairInfo.fourCard.getNumber()*13;
 			this.score += ps.pairInfo.noPairs.get(0).getScore();
 		}
 		else if(isThreeCard() && isPairs()) {
 			this.name = HandType.FULL_HOUSE;
-			this.score = 70*13*13*13*13*13;
+			this.score = 7*13*13*13*13*13;
 			this.score += ps.pairInfo.threeCard.getScore()*13;
 			this.score += ps.pairInfo.pairs.get(0).getScore();
 		}
 		else if(isFlush()) {
 			this.name = HandType.FLUSH;
-			this.score = 60*13*13*13*13*13;
+			this.score = 6*13*13*13*13*13;
 			this.score += ps.pairInfo.noPairs.get(4).getScore() * 13*13*13*13;
 			this.score += ps.pairInfo.noPairs.get(3).getScore() * 13*13*13;
 			this.score += ps.pairInfo.noPairs.get(2).getScore() * 13*13;
@@ -137,26 +137,26 @@ public class Hand {
 		}
 		else if(isStraight()) {
 			this.name = HandType.STRAIGHT;
-			this.score = 50*13*13*13*13*13;
+			this.score = 5*13*13*13*13*13;
 			this.score += ps.pairInfo.noPairs.get(2).getScore();
 		}
 		else if(isThreeCard()) {
 			this.name = HandType.THREE;
-			this.score = 40*13*13*13*13*13;
+			this.score = 4*13*13*13*13*13;
 			this.score += ps.pairInfo.threeCard.getScore()*13;
 			this.score += ps.pairInfo.noPairs.get(1).getScore() * 13;
 			this.score += ps.pairInfo.noPairs.get(0).getScore();
 		}		
 		else if(isTwoPairs()) {
 			this.name = HandType.TWO;
-			this.score = 30*13*13*13*13*13;			
+			this.score = 3*13*13*13*13*13;			
 			this.score += ps.pairInfo.pairs.get(1).getScore() * 13*13;
 			this.score += ps.pairInfo.pairs.get(0).getScore() * 13;
 			this.score += ps.pairInfo.noPairs.get(0).getScore();
 		}
 		else if(isPairs()) {
 			this.name = HandType.ONE;
-			this.score = 20*13*13*13*13*13;
+			this.score = 2*13*13*13*13*13;
 			this.score += ps.pairInfo.pairs.get(0).getScore() * 13*13*13;
 			this.score += ps.pairInfo.noPairs.get(2).getScore() * 13*13;
 			this.score += ps.pairInfo.noPairs.get(1).getScore() * 13;
@@ -164,7 +164,7 @@ public class Hand {
 		}
 		else {
 			this.name = HandType.NO_PAIRS;
-			this.score = 10*13*13*13*13*13;
+			this.score = 1*13*13*13*13*13;
 			this.score += ps.pairInfo.noPairs.get(4).getScore() * 13*13*13*13;
 			this.score += ps.pairInfo.noPairs.get(3).getScore() * 13*13*13;
 			this.score += ps.pairInfo.noPairs.get(2).getScore() * 13*13;

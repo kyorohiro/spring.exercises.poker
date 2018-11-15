@@ -74,15 +74,15 @@ public class Card {
 	}
 
 	/**
-	 * Get score. it is used A as 13, and other card as {code: {@link #getNumber()} -1.
+	 * Get score. it is used A as 13, and other card as {code: {@link #getNumber()} -2.
 	 * @return
 	 *   return {@code int} 
 	 */
 	public int getScore() {
 		if(this.number == 1) {
-			return 13;
+			return 12;
 		} else {
-			return this.number-1;
+			return this.number-2;
 		}
 	}
 
