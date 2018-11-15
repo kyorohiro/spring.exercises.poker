@@ -45,16 +45,16 @@ public enum CardType {
 	 *   CardType's shortName
 	 * @return 
 	 *   return  {@code CardType}
-	 * @throws NotFoundException
+	 * @throws PokerCoreException
 	 *   throw this error, unless 'S' or 'H' or 'D' or 'C' 's parameter as shortName.
 	 */
-	static public CardType create(char shortName) throws NotFoundException{
+	static public CardType create(char shortName) throws PokerCoreException {
 		switch(shortName) {
 			case 'S': return CardType.SPADE;
 			case 'H': return CardType.HEART;
 			case 'D': return CardType.DIAMOND;
 			case 'C': return CardType.CLUB;
 		}
-		throw new NotFoundException("");
+		throw new PokerCoreException(PokerCoreException.Type.WRONG_CARD_NAME);
 	}
 }

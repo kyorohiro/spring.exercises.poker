@@ -16,6 +16,7 @@ public class Card {
 			return null;
 		}
 	}
+
 	public static Card create(String data) throws Exception {
 		data = data.trim();
 		CardType cardType = CardType.create(data.charAt(0));
