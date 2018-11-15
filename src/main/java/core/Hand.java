@@ -198,7 +198,8 @@ public class Hand {
 	public static Comparator<Hand> newPokaComparator() {
 		return new Comparator<Hand>() {
 			public int compare(Hand c1, Hand c2) {
-				return (c1.score > c2.score?1:-1);
+				
+				return (c1.score == c2.score? 0: (c1.score > c2.score?1:-1));
 			}
 		};
 	}
