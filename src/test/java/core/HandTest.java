@@ -1,6 +1,7 @@
 package core;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.handler;
 
 import org.junit.Test;
 
@@ -24,6 +25,7 @@ public class HandTest {
 	public void createHand() {
 		Hand straighFlush = Hand.createUnsafe("S1 S2 S3 S4 S5");
 		assertEquals("", HandType.STRAIGHT_FLUSH, straighFlush.getType());
+		
 		//
 		Hand four = Hand.createUnsafe("S1 D1 C1 H1 S5");
 		assertEquals("", HandType.FOUR, four.getType());
