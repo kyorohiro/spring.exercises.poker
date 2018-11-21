@@ -26,6 +26,11 @@ public class PokerController {
 	@Autowired
 	PokerService pokerService;
 
+	@RequestMapping(path="/poker/hello", method=RequestMethod.GET)
+	public String hello() throws PokerCoreException {
+		return "Hello";
+	}
+
 	@RequestMapping(path="/poker/hand", method=RequestMethod.POST)
 	public PokerResponse getPokerRole(@RequestBody PokerRequest request) throws PokerCoreException {
 		PokerHand hand = pokerService.getHand(request.cards);
